@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage{systeme}
+\usepackage{amsmath}
+
+\renewcommand{\baselinestretch}{1.5}
+
+\title{Первое задание БМСО}
+\author{Ярослав Аверьянов}
+\date{Сентябрь 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Первая задача}
+$p(x) \sim N(\mu_1,\Sigma_1) \qquad q(x) \sim N(\mu_2,\Sigma_2) \qquad x \in \mathbf{R^n}$\\
+$D_{pq}(x) = \int_{-\infty}^{+\infty} p(x)ln(\frac{p(x)}{q(x)})dx = \int_{-\infty}^{+\infty}\frac{1}{(2\pi)^{\frac{n}{2}}(det\Sigma_1)^{1/2}} exp(-\frac{1}{2}(x-\mu_1)^{T}\Sigma_1^{-1}(x-\mu_1))ln(\frac{(det\Sigma_2)^{1/2}}{(det\Sigma_1)^{1/2}})dx + \int_{-\infty}^{+\infty} \frac{exp(-\frac{1}{2}(x-\mu_1)^{T}\Sigma_1^{-1}(x-\mu_1))}{(2\pi)^{n/2}(det\Sigma_1)^{1/2}}[\frac{1}{2}(x-\mu_2)^{T}\Sigma_2^{-1}(x-\mu_2) - \frac{1}{2}(x-\mu_1)^{T}\Sigma_1^{-1}(x-\mu_1)]dx = ln(\frac{det\Sigma_2}{det\Sigma_1})^{1/2} + \int_{-\infty}^{+\infty}p(x)[\frac{1}{2}(x-\mu_1)^{T}(\Sigma_2^{-1} - \Sigma_1^{-1})(x-\mu_1) + (\mu_1 - \mu_2)^{T}\Sigma_2^{-1}(x-\mu_1) + \frac{1}{2}(\mu_1 - \mu_2)^{T}\Sigma_2^{-1}(\mu_1 - \mu_2)]dx$\\
+Посчитаем эти интегралы:\\
+1)$\int_{-\infty}^{+\infty} p(x)((\mu_1 - \mu_2)^{T}\Sigma_2^{-1}(x-\mu_1))dx = \int_{-\infty}^{+\infty}\frac{1}{(2\pi)^{\frac{n}{2}}(det\Sigma_1)^{1/2}}exp(-\frac{1}{2}(x-\mu_1)^{T}\Sigma_1^{-1}(x-\mu_1)(\mu_1-\mu_2)^{T}\Sigma_2^{-1}(x-\mu_1))dx = $(Замена $ x-\mu_1 = \Sigma_1^{\frac{1}{2}}y$)$ \frac{1}{(2\pi)^{n/2}(det\Sigma_1)^{\frac{1}{2}}}\int_{-\infty}^{+\infty} (\mu_1 - \mu_2)^{T}(\Sigma_2^{-1}\Sigma_1^{\frac{1}{2}})|det\Sigma_1^{\frac{1}{2}}|exp(-\frac{1}{2}y^{T}y)dy = 0$\\
+2)$\int_{-\infty}^{+\infty} p(x)[\frac{1}{2}(\mu_1 - \mu_2)^T\Sigma_2^{-1}(\mu_1 - \mu_2)] = \frac{1}{2}(\mu_1 - \mu_2)\Sigma_2^{-1}(\mu_1 - \mu_2)$;
+3)$\int_{-\infty}^{+\infty} p(x)[\frac{1}{2}(x-\mu_1)^{T}(\Sigma_2^{-1} - \Sigma_1{-1})(x-\mu_1)]dx = $(Замена $ x - \mu_1 = \Sigma_1^{\frac{1}{2}}y$)$ = \frac{1}{(2\pi)^{n/2}}\int_{-\infty}^{+\infty} exp(-\frac{1}{2}y^{T}y)\frac{1}{2}y^{T}(\Sigma_1^{\frac{1}{2}}(\Sigma_2^{-1} - \Sigma_1{-1})\Sigma_1^{\frac{1}{2}})y$\\
+В $ y^{T}(\Sigma_1^{1/2}(\Sigma_2^{-1} - \Sigma_1^{-1})\Sigma_1^{1/2})y$ есть члены $a_{ij}y_iy_j(i\neq j)$ и $a_{jj}y_j^2$.\\
+Интеграл с $a_{ij} y_i y_j = 0$, т.к. подынтегральная функция - нечетная отн-но $y_i$, а интеграл с $a_{ii} y_i^2 = \frac{1}{2} a_{ii}$.\\
+$\to 3) = \frac{1}{2}tr(\Sigma_1^{\frac{1}{2}}(\Sigma_2^{-1} - \Sigma_1^{-1})\Sigma_1^{1/2}) = \frac{1}{2}tr(\Sigma_2^{-1}\Sigma_1 - E_n)$\\
+$\to D_{pq}(x) = \frac{1}{2}tr(\Sigma_2^{-1}\Sigma_1 - E_n) + ln(\frac{det\Sigma_2}{det\Sigma_1})^{\frac{1}{2}} + \frac{1}{2}(\mu_1 - \mu_2)^{T}\Sigma_2^{-1}(\mu_1 - \mu_2).$
+
+
+\section{Вторая задача}
+Множество распределений Пуассона - экспоненциальный класс\\
+$p(x|\lambda) = e^{-\lambda}\frac{\lambda^x}{x!} = \frac{exp(-\lambda + xln\lambda)}{x!};$\\
+$p(x|\lambda)$ имеет вид $exp[C(\lambda) + \sum\limits_{i=1}^{p}t_i(x)A_i(\lambda)]h(x)$\\
+Где $C(\lambda) = -\lambda$ и $p = 1, t_1(x) = x, A_1(\lambda) = ln\lambda$.
+
+\section{Третья задача}
+Пример неэкспоненциального семейства распределений, нетривиально зависящего от параметра, с одномерной достаточной статистикой.\\
+В качестве примера возьмем равномерное распределение:\\
+$
+p(x|\theta)=
+\begin{cases}
+\frac{1}{\theta}, x \in [0,\theta] \\
+0, otherwise
+\end{cases}
+$\\
+Достаточная одномерная статистика - $X_{(1)}$ или $X_{(n)}$.
+
+\section{Четвертая задача}
+Задана выбока НОР СВ $(X_1,X_2,...,X_n)$. Точки $X_i$ распределены равномерно с параметрами $\mathbf{\theta} = (\theta_1,\theta_2),\theta_2 > \theta_1$, т.е.\\
+$
+p(x|\mathbf{\theta})=
+\begin{cases}
+0, \qquad x < \theta_1, \\
+\frac{1}{\theta_2 - \theta_1}, \qquad \theta_1 \leq x \leq \theta_2, \\
+0, \qquad x > \theta_2
+\end{cases}
+$\\
+\\
+Покажем, что СВ $y = \frac{x_{(r)} - x_{(1)}}{x_{(n)} - x_{(1)}}, 1 \leq r \leq n$ не зависит от $(x_{(1)},x_{(n)})$, где $x_{(i)}$ - iая порядковая статистика.\\
+$p(x|\theta) = \frac{1}{(\theta_2 - \theta_1)^n}\mathbf{I}[x_{(1)} \geq \theta_1]\mathbf{I}[x_{(n)} \leq \theta_2]$\\
+При $x_{(1)} \geq \phi_1$ и $x_{(n)} \leq \phi_2 $ $(x_1,...,x_n)$ распределен на $[\phi_1,\phi_2]^n$.  Тогда $(y_1,...,y_n)$, где $y_k = \frac{x_{(k)}-x_{(1)}}{x_{(n)} - x_{(1)}}, 1 \leq k \leq n$ равномерно распределен на $[0,1]^n \to$ не зависит от $(x_{(1)},x_{(n)})$.  
+
+
+\section{Пятая задача}
+Плотность Коши:\\
+$p(x|\theta) = \frac{1}{\pi(1 + (x-\theta)^2)}$\\
+a) Информация Фишера:\\
+$I(\theta) = -\mathbf{E}_{\theta}[\frac{\partial^2 logf(x;\theta)}{\partial \theta^2}] = \mathbf{E}_{\theta}[\frac{\partial^2 log(1+(x-\theta)^2)}{\partial \theta^2}] = 2\mathbf{E}_{\theta}[\frac{\partial}{\partial \theta} \frac{(x-\theta)}{1 + (x - \theta)^2}] = 2\mathbf{E}_{\theta}[\frac{1}{1 + (x-\theta)^2} - \frac{2(x-\theta)^2}{[1 + (x-\theta)^2]^2}] = \frac{2}{\pi} \int_{\mathbf{R}} [\frac{1}{[1 + (x - \theta)^2]^2} - \frac{2(x-\theta)^2}{[1 + (x - \theta)^2]^3}]dx = \frac{2}{\pi} \int_{\mathbf{R}} [\frac{1}{[1 + x^2]^2} - \frac{2x^2}{[1 + x^2]^3}]dx = \frac{2}{\pi} \int_{\mathbf{R}} [\frac{1}{[1 + x^2]^2} - \frac{2}{[1 + x^2]^2} + \frac{2}{[1 + x^2]^3}]dx = \frac{2}{\pi} \int_{\mathbf{R}} [-\frac{1}{[1 + x^2]^2} + \frac{2}{[1 + x^2]^3}]dx$\\
+$I_k = \int_{\mathbf{R}} \frac{1}{[1 + x^2]^k}dx = \int_{\mathbf{R}} \frac{1 + x^2}{[1 + x^2]^{k+1}}dx = I_{k+1} + \int_{\mathbf{R}} \frac{2kx}{[1 + x^2]^{k+1}}\frac{x}{2k}dx = I_{k+1} + \frac{1}{2k}\int_{\mathbf{R}}\frac{1}{[1 + x^2]^k}dx = I_{k+1} + \frac{1}{2k}I_k$\\
+$I_1 = \pi \qquad I_{k+1} = \frac{2k-1}{2k}I_{k}$\\
+$\to I(\theta) = \frac{2}{\pi}[-I_2 + 2I_3] = \frac{2}{\pi}[-\frac{\pi}{2} + \frac{3\pi}{4}] = \frac{1}{2}$\\
+Проблема оценки медианы в том, что для нее не существует мат.ожидания и дисперсии.\\
+б) Пусть $\hat{\theta}_n = \frac{1}{n}\sum\limits_{i=1}^n x_i$ - оценка медианы.\\
+Найдем правдоподобие и его производные:
+\begin{center}
+$l(\theta) = -log(\pi) - log(1 + (x - \theta)^2)$\\
+$l^{'}(\theta) = \frac{2(x - \theta)}{1 + (x - \theta)^2}$\\
+$l^{''}(\theta) = -2\frac{1 - (x-\theta)^2}{(1 + (x - \theta)^2)^2}$
+\end{center} 
+Возьмем следующую численную реализацию для нахождения:\\
+$\hat{\theta} = \tilde{M}_n - (l_n^{''}(\tilde{M}_n))^{-1} l_n^{'}(\tilde{M}_n)$\\
+Где $\tilde{M}_n$ - $p = \frac{1}{2}$ квантиль распределения Коши.
+\begin{center}
+$\hat{\theta} = \tilde{M}_n + 4\cdot(\sum\limits_{i=1}^{n} \frac{1-(x_i - \tilde{M}_n)^2}{(1 + (x_i - \tilde{M}_n)^2)^2})^{-1} \sum\limits_{i=1}^{n}\frac{(x_i - \tilde{M}_n)}{1 + (x_i - \tilde{M}_n)^2};$
+\end{center}
+в)Введем обозначение:\\
+$I_{n} = \int \frac{\partial^2 log(p(\theta|x))}{\partial \theta^2} p(\theta|x)dx$ - информация Фишера.\\
+Уже было подсчитано, что $I_1 = \frac{1}{2}$ и известно, что $I_n = n\cdot I_1$\\
+$\to$ нижняя оценка Рао-Крамера (для медианы):
+\begin{center}
+$var(\hat{\theta}) \geq [n\cdot I_1]^{-1} = \frac{2}{n}$.
+\end{center}
+
+\end{document}

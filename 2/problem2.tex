@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage{systeme}
+\usepackage{amsmath}
+
+
+\renewcommand{\baselinestretch}{1.5}
+
+\title{Второе задание по БМСО}
+\author{Ярослав Аверьянов}
+\date{Октябрь 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Первая задача}
+Последовательность НОР СВ $\sim U[0,\theta]$. Априорное распределение $\theta$ - распределение Парето.\\
+$
+F(\theta)=
+\begin{cases}
+0, \qquad \theta < \theta_m, \\
+1 - (\frac{\theta_m}{\theta})^k, \qquad \theta \geq \theta_m , \\
+\end{cases}
+$\\  
+Где $\theta_m > 0$ и $k \in \mathbf{N}$ - известные параметры.\\
+Доказать, что апостериорное распределение параметра - Парето-распределение, найти его параметры.\\
+$
+p(\theta)=
+\begin{cases}
+0, \qquad \theta < \theta_m, \\
+\frac{k\theta_m^k}{\theta^{k+1}}, \qquad \theta \geq \theta_m , \\
+\end{cases}
+$\\
+Правдоподобие для выборки $\mathbf{X}$ может быть записано так:\\
+$L(x,\theta) = \frac{1}{\theta^n}\mathbf{I}[x_{(n)} \leq \theta] \propto \frac{1}{\theta^n}(n-1)x_{(n)}^{n-1}\mathbf{I}[x_{(n)} \leq \theta] \propto Pareto(n-1,x_{(n)})$.\\
+Теперь рассмотрим априорное распределение параметра $\theta$:\\
+$p(x,\theta) \propto \frac{1}{\theta^n}\mathbf{I}[x_{(n)} \leq \theta]\frac{k\theta_m^k}{\theta^{k+1}} \propto \frac{1}{\theta^{n+k+1}}\mathbf{I}[max(x_{(n)}, \theta_m) \leq \theta] \propto Pareto(n+k, max(x_{(n)}, \theta_m))$.\\
+Ч.т.д. 
+
+\section{Вторая задача}
+Наблюдается выборка $\mathbf{D} = [x_i]_{i = 1}^{N}$ НОР СВ. Пусть правдоподобие $p(\mathbf{x},\boldsymbol{\theta}), \mathbf{x} \in \mathbf{R}^n, \boldsymbol{\theta} \in \mathbf{R}^p$ - из экспоненциального семейства:\\
+
+
+$p(\mathbf{x}|\boldsymbol{\theta}) = h_{l}(\mathbf{x})exp(\boldsymbol{\theta}^{T} t(\mathbf{x}) - a_l(\boldsymbol{\theta}))$\\
+Априорное распределение:\\
+$\pi(\boldsymbol{\theta}|\boldsymbol{\lambda_1},\lambda_2) = h_p(\boldsymbol{\theta})exp(\boldsymbol{\lambda_1}^{T}\boldsymbol{\theta} - \lambda_2a_l(\boldsymbol{\theta}) - a_p(\boldsymbol{\lambda_1}, \lambda_2))$\\
+Показать, что такое семейство априорных распределений - сопряженное относительно правдоподобия. Найти параметры апостериорного распределения.\\
+Вычислим апостериорное распределение $\boldsymbol{\theta}$:\\
+$p(\boldsymbol{\theta}|\mathbf{x}) \propto \pi(\boldsymbol{\theta}|\boldsymbol{\lambda_1},\lambda_2)\prod_{i=1}^{N} p(\mathbf{x}_i|\boldsymbol{\theta}) = h_p(\boldsymbol{\theta})exp(\boldsymbol{\lambda_1}^T\boldsymbol{\theta} - \lambda_2a_l(\boldsymbol{\theta}) - a_p(\boldsymbol{\lambda_1},\lambda_2))(\prod_{i=1}^{N} h_l(\mathbf{x}_i))exp(\boldsymbol{\theta}^T\sum\limits_{i=1}^{N}t(\mathbf{x}_i) - Na_l(\boldsymbol{\theta})) \propto h_p(\boldsymbol{\theta})exp((\boldsymbol{\lambda_1} + \sum\limits_{i=1}^N t(\mathbf{x}_i))^T\boldsymbol{\theta} - (\lambda_2 + N)a_l(\boldsymbol{\theta}))$\\
+В итоге апостериорное и априорное распределение $\propto \pi(\boldsymbol{\theta},\boldsymbol{\lambda_1^{'}},\lambda_2^{'})$, где $\boldsymbol{\lambda_1^{'}} = \boldsymbol{\lambda_1} + \sum\limits_{i=1}^{N} t(\mathbf{x}_i), \lambda_2^{'} = \lambda_2 + N$.
+
+\section{Третья задача}
+$
+\pi(\theta)=
+\begin{cases}
+1, \qquad 0 \leq \theta \leq 1, \\
+0, \qquad иначе , \\
+\end{cases}
+$\\
+$\theta^{'} = log\frac{\theta}{1-\theta}$ - оцениваемый параметр.\\
+a) Покажем, что такое преобразование параметра есть взаимнооднозначное отображение из $(0,1)$ в $\mathbf{R}$.\\
+$\frac{d\theta^{'}}{d\theta} = \frac{1}{\theta(1-\theta)} > 0$ и $log\frac{\theta}{1-\theta}$ - непрерывная фунция от $\theta \to$, по теореме об обратной функции, существует функция, обратная к $log\frac{\theta}{1-\theta}$, причем непрерывная и строго возрастающая $\to$ преобразование $\theta^{'} = log\frac{\theta}{1-\theta}$ есть взаимнооднозначное отображение (по теореме о взаимнооднозначном отображении).\\
+б) Найдем априорное распределение $\omega(\theta)$ $\theta^{'}$ для равномерного априорного распределения $\pi(\theta)$:\\
+$\omega(\theta)d\theta = \pi(\theta^{'})d\theta^{'} = \pi(\theta^{'}(\theta))\frac{d\theta^{'}}{d\theta}d\theta = \frac{1}{\theta(1-\theta)d\theta}$
+\begin{center}
+$\to \omega(\theta) = \frac{1}{\theta(1-\theta)}$ - не равномерное.
+\end{center}
+
+\section{Четвертая задача}
+a) Покажем, что для нормального распределения $p(x|\theta)$ с известной дисперсией $\sigma^2 > 0$ матрица Фишера $I(\theta)$ не зависит от $\theta$.\\
+Запишем логарифм правдоподобия:\\
+$l(x|\theta) = logf(x|\theta) = -\frac{1}{2}log(2\pi\sigma^2) - \frac{(x-\theta)^2}{2\sigma^2}$\\
+$l^{'}(x|\theta) = \frac{x-\theta}{\sigma^2}, l^{''}(x|\theta) = -\frac{1}{\sigma^2}$\\
+Убедимся, что матрица Фишера не зависит от $\theta$:
+\begin{center}
+$I(\theta) = -\mathbf{E}[l^{''}(x|\theta)] = \frac{1}{\sigma^2}$
+\end{center}
+б) Выпишем априорное распределение Джеффри $\pi_J(\theta)$ для распределения из а):\\
+$\pi_J(\theta) \propto \sqrt{I(\theta)} = \sqrt{\frac{1}{\sigma^2}} \propto 1$\\
+Распределение - не корректное, т.к. $\int \pi_J(\theta)d\theta \neq 1$\\
+в) Апостериорное распределение:
+\begin{center}
+$p(\theta|x) \propto p(x|\theta)p(\theta)$\\
+$p(\theta) = \frac{1}{\sqrt{2\pi}\sigma_0}exp(-\frac{(\theta - \theta_0)^2}{2\sigma_0^2})$\\
+$p(\theta|x) \propto exp(-\frac{(\theta - \theta_0)^2}{2\sigma_0^2})exp(-\frac{(x-\theta)}{2\sigma^2}) \propto exp(-\frac{-(\theta - \overline{\theta})^2}{2\overline{\sigma}^2})$ корректно.
+\end{center}
+
+
+
+
+\end{document}
